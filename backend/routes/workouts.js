@@ -1,6 +1,6 @@
 const express = require('express')
 
-const{createWorkout, getAllWorkouts, getWorkout}=require('../controllers/workOutController')
+const{createWorkout, getAllWorkouts, getWorkout, deleteWorkout, updateWorkout}=require('../controllers/workOutController')
 
 const router = express.Router()
 
@@ -12,19 +12,13 @@ router.get('/', getAllWorkouts)
 router.get('/:id', getWorkout)
 
 //add a new workout
-//async keyword indicates that the function contains asynchronous code and might 
-//use await to pause execution until promises are resolved.
 router.post('/', createWorkout)
 
 //delete a workout
-router.delete('/:id', (req, res) => {
-    res.json({ mssg: "deleted a single workout" })
-})
+router.delete('/:id', deleteWorkout)
 
 //Update a workout
-router.patch('/:id', (req, res) => {
-    res.json({ mssg: "updated a single workout" })
-})
+router.patch('/:id', updateWorkout)
 
 
 

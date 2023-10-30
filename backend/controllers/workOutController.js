@@ -1,30 +1,33 @@
 const workoutModel = require('../models/workoutModel')
-const mongoose = require ('mongoose')
+const mongoose = require('mongoose')
+
+//async keyword indicates that the function contains asynchronous code and might 
+//use await to pause execution until promises are resolved.
 
 //Retrieve all workouts
-const getAllWorkouts = async(req, res) => {
+const getAllWorkouts = async (req, res) => {
     const workouts = await workoutModel.find({}).sort({ createdAt: -1 })
     res.status(200).json(workouts)
 
 }
 
 //Retrieve a single workout
-const getWorkout = async(req,res)=>{
-    const {id} = req.params
+const getWorkout = async (req, res) => {
+    const { id } = req.params
 
-    if(!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(404).json({error:'Object Not found'})
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: 'No such workout exists' })
     }
 
     const workout = await workoutModel.findById(id)
 
-    if(!workout){
-      return  res.status(404).json({error:"No such workout exists"})
+    if (!workout) {
+        return res.status(404).json({ error: "No such workout exists" })
     }
-    else{
+    else {
         return res.status(200).json(workout)
     }
-} 
+}
 
 //Create a single workout
 const createWorkout = async (req, res) => {
@@ -44,11 +47,45 @@ const createWorkout = async (req, res) => {
 }
 
 //Delete a workout
+const deleteWorkout = async (req, res) => {
+    const { id } = req.params
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: 'No such workout exists' })
+    }
+
+    const workout = await workoutModel.findOneAndDelete({ _id: id })
+
+    if (!workout) {
+        return res.status(404).json({ error: "No such workout exists" })
+    }
+
+    res.status(200).json(workout)
+}
 
 // Update a workout
+const updateWorkout = async (req, res) => {
+    const { id } = req.params
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: 'No such workout exists' })
+    }
+
+    const workout = await workoutModel.findByIdAndUpdate({_id:id}, {
+        ...req.body
+    })
+
+    if (!workout) {
+        return res.status(404).json({ error: "No such workout exists" })
+    }
+
+    res.status(200).json(workout)
+}
 
 module.exports = {
     getAllWorkouts,
     getWorkout,
-    createWorkout
+    createWorkout,
+    deleteWorkout,
+    updateWorkout
 }
