@@ -8,7 +8,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 
 //imports the workouts file which stores the routes for the application.
-const TiziRoutes = require('./routes/workouts')
+const TiziRoutes = require('./backend/routes/workouts')
 
 //Creates an instance of the Express application and stores in the app variable. This instance will be used to define routes, configure middleware, and start the server.
 const app = express()
