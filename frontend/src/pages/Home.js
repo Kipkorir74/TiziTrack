@@ -1,6 +1,8 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 
+import WorkoutDetail from '../components/workoutDetails'
+
 const Home = () => {
     const [workouts, setWorkouts] = useState(null);
 
@@ -24,11 +26,11 @@ const Home = () => {
             <div className='workouts'>
                 {
                     workouts && workouts.length >0 ?
-                    workouts.map((workout) => {
-                        return(
-                    <p key={workout._id}>{workout.title}</p>
-                        )
-                    })
+                    workouts.map((workout) => (
+                        
+                    <WorkoutDetail key={workout._id} workout= {workout}/>
+                       
+                    ))
                 : "No data available"}
             </div>
         </div>
