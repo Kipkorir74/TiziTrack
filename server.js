@@ -4,6 +4,8 @@ require("dotenv").config()
 // imports the Express framework
 const express = require('express')
 
+var cors = require('cors')
+
 // imports the Mongoose library to interact with MongoDB databases
 const mongoose = require('mongoose')
 
@@ -12,6 +14,8 @@ const TiziRoutes = require('./backend/routes/workouts')
 
 //Creates an instance of the Express application and stores in the app variable. This instance will be used to define routes, configure middleware, and start the server.
 const app = express()
+
+app.use(cors())
 
 // Registers middleware using app.use(). It tells Express to parse incoming JSON data from HTTP requests. This middleware is crucial for handling JSON data sent in the request body.
 app.use(express.json())
