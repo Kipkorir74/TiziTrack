@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 
 import WorkoutDetail from '../components/workoutDetails'
+import WorkoutFomr from '../components/WorkoutFomr'
 
 const Home = () => {
     const [workouts, setWorkouts] = useState(null);
@@ -32,6 +33,9 @@ const Home = () => {
                        
                     ))
                 : "No data available"}
+            </div>
+            <div>
+                <WorkoutFomr/>
             </div>
         </div>
     )
