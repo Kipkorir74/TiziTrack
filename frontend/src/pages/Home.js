@@ -1,11 +1,12 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { useWorkoutsContext } from '../hooks/useWorkotsContext'
 
 import WorkoutDetail from '../components/workoutDetails'
 import WorkoutFomr from '../components/WorkoutFomr'
 
 const Home = () => {
-    const [workouts, setWorkouts] = useState(null);
+    const {workouts, dispatch} = useWorkoutsContext()
 
     //The use effect fires only once upon loadng, thus the empty array
     useEffect(() => {
@@ -14,7 +15,7 @@ const Home = () => {
             const json = await response.json()
 
             if (response.ok) {
-                setWorkouts(json)
+                dispatch({type:'SET_WORKOUTS', payload:json})
             }
             console.log(json);
         }

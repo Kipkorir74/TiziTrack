@@ -32,7 +32,7 @@ export const WorkoutsContextProvider = ({ children }) => {
     return (
         // value prop set to the object {state, dispatch } avails the current state and the dispacth
         // function to the components that consume this context
-        <WorkoutsContext.Provider value={{ state, dispatch }}>
+        <WorkoutsContext.Provider value={{ ...state, dispatch }}>
             {children}
         </WorkoutsContext.Provider>
     )
