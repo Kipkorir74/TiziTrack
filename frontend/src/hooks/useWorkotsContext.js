@@ -1,6 +1,7 @@
 import { WorkoutsContext } from "../context/WorkoutContext";
 import { useContext } from "react";
 
+
 export const useWorkoutsContext = () => {
 
     // useContext is a hook that allows functional components to subscribe to context changes
