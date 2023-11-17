@@ -34,6 +34,26 @@ const createWorkout = async (req, res) => {
     // destructure the req.body object to extract these properties.
     const { title, reps, load } = req.body
 
+    let emptyFields = []
+
+    if(!title){
+        emptyFields.push('title')
+    }
+
+    if(!reps){
+        emptyFields.push('reps')
+    }
+
+    if(!load){
+        emptyFields.push('load')
+    }
+
+    if(emptyFields.length > 0) {
+        return res.status(400).json({
+            error:"Please fill all the fields", emptyFields
+        })
+    }
+
     try {
         // Create a new workout document using the Mongoose model workoutModel.
         const workout = await workoutModel.create({ title, reps, load })
@@ -42,7 +62,7 @@ const createWorkout = async (req, res) => {
     }
     catch (error) {
         // If there is an error, respond with a 400 (Bad Request) status code and an error message as JSON.
-        res.status(400).json({ error: error.message })
+        res.status(400).json({ error: error.message, emptyFields })
     }
 }
 
