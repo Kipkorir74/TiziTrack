@@ -21,7 +21,7 @@ const Home = () => {
         }
         
         retrieveWorkouts()
-    }, [])
+    }, [dispatch])
     
     return (
         <div className='home'>
