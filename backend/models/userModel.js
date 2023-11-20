@@ -23,7 +23,7 @@ const userSchema = new Schema({
 }, {timestamps:true})
 
 // static signup method
-userSchema.static.signup = async function(name, email, password){
+userSchema.statics.signup = async function(name, email, password){
 
     // When using this keyword, do not use arrow function
     const exists = await this.findOne({email})
