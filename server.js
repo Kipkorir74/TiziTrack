@@ -30,7 +30,7 @@ app.use((req, res, next) => {
 
 //register routes
 app.use('/api/tizi', TiziRoutes)
-app.use('/app/user/', userRoutes)
+app.use('/api/user/', userRoutes)
 
 //connect to DB
 mongoose.connect(process.env.MONGO_URI)
