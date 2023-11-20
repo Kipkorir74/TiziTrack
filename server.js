@@ -12,6 +12,8 @@ const mongoose = require('mongoose')
 //imports the workouts file which stores the routes for the application.
 const TiziRoutes = require('./backend/routes/workouts')
 
+//import the user file which stores the user routes for the application
+const userRoutes = require('./backend/routes/user')
 //Creates an instance of the Express application and stores in the app variable. This instance will be used to define routes, configure middleware, and start the server.
 const app = express()
 
@@ -26,8 +28,9 @@ app.use((req, res, next) => {
     next()
 })
 
-//routes
+//register routes
 app.use('/api/tizi', TiziRoutes)
+app.use('/app/user/', userRoutes)
 
 //connect to DB
 mongoose.connect(process.env.MONGO_URI)
