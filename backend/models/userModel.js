@@ -3,6 +3,8 @@ const mongoose  = require('mongoose')
 
 const bcrypt = require('bcrypt')
 
+const validator = require('validator')
+
 // creates a reference to the Schema constructor provided by Mongoose. The schema defines the structure and properties of documents stored in MongoDB collection
 const Schema = mongoose.Schema;
 
@@ -24,6 +26,19 @@ const userSchema = new Schema({
 
 // static signup method
 userSchema.statics.signup = async function(name, email, password){
+
+    // validation
+    if (!name || !email | !password){
+        throw Error("Please fill all fields")
+    }
+
+    if(!validator.isEmail(email)){
+        throw Error("Email is invalid! Apply Yourself Monsieur!")
+    }
+
+    if (!validator.isStrongPassword(password)){
+        throw Error("Password is weak AF! Again, Apply yourself")
+    }
 
     // When using this keyword, do not use arrow function
     const exists = await this.findOne({email})
