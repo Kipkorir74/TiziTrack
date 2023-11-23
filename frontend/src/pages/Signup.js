@@ -1,27 +1,28 @@
 import { useState } from "react"
+import { useSignup } from "../hooks/useSignup"
 
 const Signup = () => {
+    const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const {signup, isLoading, error} = useSignup()
 
-    const handleSubmit = async(e) =>{
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
-        console.log(email, password)
-        // const user = {email, password} 
-        // const response = await fetch ('http://localhost:4000/api/user/signup',{
-        //     method:'POST',
-        //     body:JSON.stringify(user),
-        //     headers: {
-        //         'Content-type': 'application/JSON'
-        //     }
-        // })
-        // const json = await response.json()
+        await signup(name, email, password)
     }
 
     return (
-        <form className="signup" onSubmit={ handleSubmit}>
+        <form className="signup" onSubmit={handleSubmit}>
             <h3>Signup</h3>
+
+            <label>Name</label>
+            <input
+                type="name"
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+            />
 
             <label>Email</label>
             <input
@@ -30,14 +31,18 @@ const Signup = () => {
                 value={email}
             />
 
-            <label>Email</label>
+            <label>Password</label>
             <input
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
             />
 
-            <button>Signup</button>
+            <button disabled={isLoading}>Signup</button>
+            {error && <div className="error">
+                {error}
+            </div>
+            }
         </form>
 
     )
