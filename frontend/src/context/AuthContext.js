@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useEffect } from "react";
 
 export const AuthContext = createContext()
 
@@ -23,6 +23,18 @@ export const AuthContextProvider = ({children}) =>{
  const [state, dispatch] = useReducer(AuthReducer, {
     user:null
  })
+
+ //check for token in local storage to detrmine of to retain user in login mode
+//  or kick them out
+ useEffect(()=>{
+    //parse the token to an object that we can use in js
+    const user = JSON.parse(localStorage.getItem('user'))
+    if (user){
+        dispatch({type:'LOGIN', payload:user})
+    }
+    
+ }, [])
+
  console.log("Authcontext state:", state)
 
  return (
