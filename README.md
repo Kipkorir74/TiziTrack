@@ -1,2 +1,2 @@
 # TiziTrack
-A MERN stack application for users to track their exercises and keep fit. 
+A Full Stack MERN Application for Gym Fanatics to Keep track of their workout exercises 
