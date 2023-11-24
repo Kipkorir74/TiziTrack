@@ -6,7 +6,8 @@ const mongoose = require('mongoose')
 
 //Retrieve all workouts
 const getAllWorkouts = async (req, res) => {
-    const workouts = await workoutModel.find({}).sort({ createdAt: -1 })
+    const user_id =req.user._id
+    const workouts = await workoutModel.find({user_id}).sort({ createdAt: -1 })
     res.status(200).json(workouts)
 
 }
@@ -55,8 +56,9 @@ const createWorkout = async (req, res) => {
     }
 
     try {
+        const user_id = req.user._id
         // Create a new workout document using the Mongoose model workoutModel.
-        const workout = await workoutModel.create({ title, reps, load })
+        const workout = await workoutModel.create({ title, reps, load, user_id })
         // Respond with a 200 (OK) status code and the created workout as JSON.
         res.status(200).json(workout)
     }
